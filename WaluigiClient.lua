@@ -59,11 +59,23 @@ POWERUP_X = 0x03B3
 POWERUP_Y = 0x03BE
 POWERUP_DRAWN = 0x0014
 
+-- Gets the hash of the ROM
+ROM_HASH = gameinfo.getromhash()
+
+-- Expected hash
+CORRECT_HASH = "AB30029EFEC6CCFC5D65DFDA7FBC6E6489A80805"
+
+-- Incorrect ROM
+UNEXPECTED_ROM = false
+if ROM_HASH ~= CORRECT_HASH then
+	console.writeline("WARN: Unexpected ROM hash encountered. Expected: "..CORRECT_HASH..". Got: "..ROM_HASH)
+	UNEXPECTED_ROM = true
+end
+
 -- Main loop
 while true do
 	-- Is the user pausing the game?
 	local _paused = mainmemory.readbyte(PAUSED);
-
 
 	-- Changing the previously pressed keys
 	prevDown = down
@@ -82,6 +94,11 @@ while true do
 
 	-- Should the cheat menu be showed?
 	if _paused ~= 0 then
+		-- Unexpected ROM warning
+		if UNEXPECTED_ROM then
+			gui.drawText(1, 210, "WARN: Unexpected ROM hash encountered.", 0xffffff00, 0xff000000, 11, "candara")
+		end
+	
 		-- Enables a cheat if you are hovering over it and you click the A button
 		if (not isSettings) and press and not prevPress then
 			enabled[selected+1] = not enabled[selected+1]
@@ -134,8 +151,8 @@ while true do
 		gui.drawBox( 20, 24, 240, 180, 0x33000000, 0x55000000);
 		
 		-- Title
-		gui.drawText( 21, 25, "Waluigi Client", 0xAAAA60AA, 0x00FFFFFF, 14);
-		gui.drawText( 20, 24, "Waluigi Client", 0xFFFFB0FF, 0x00FFFFFF, 14);
+		gui.drawText( 21, 25, "Waluigi Client", 0xAAAA60AA, 0x00FFFFFF, 17, "calibri");
+		gui.drawText( 20, 24, "Waluigi Client", 0xFFFFB0FF, 0x00FFFFFF, 17, "calibri");
 		
 		-- Loops over the cheats and renders their names based off of if they are enabled or not.
 		for i, h in pairs(hacks) do
