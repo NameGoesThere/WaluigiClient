@@ -11,6 +11,10 @@ You can find the BizHawk emulator at https://tasvideos.org/Bizhawk
 (note: I don't like lua, and i'm not good at it either, if I made a mistake, please make an issue or a pull request.)
 ]]--
 
+--- Client data
+TITLE = "Waluigi Client"
+TITLE_FONT = "calibri"
+
 -- All the different cheats
 hacks = {"Powerup State", "Player Size", "Invincibility", "Lives", "Enemy ESP", "Powerup ESP", "Star"}
 
@@ -152,8 +156,8 @@ while true do
 		gui.drawBox( 20, 24, 240, 180, 0x33000000, 0x55000000)
 		
 		-- Title
-		gui.drawText( 21, 25, "Waluigi Client", 0xAAAA60AA, 0x00FFFFFF, 17, "calibri")
-		gui.drawText( 20, 24, "Waluigi Client", 0xFFFFB0FF, 0x00FFFFFF, 17, "calibri")
+		gui.drawText( 21, 25, TITLE, 0xAAAA60AA, 0x00FFFFFF, 17, TITLE_FONT)
+		gui.drawText( 20, 24, TITLE, 0xFFFFB0FF, 0x00FFFFFF, 17, TITLE_FONT)
 		
 		-- Loops over the cheats and renders their names based off of if they are enabled or not.
 		for i, h in pairs(hacks) do
