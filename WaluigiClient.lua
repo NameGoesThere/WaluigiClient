@@ -12,15 +12,15 @@ You can find the BizHawk emulator at https://tasvideos.org/Bizhawk
 ]]--
 
 -- All the different cheats
-hacks = {"Powerup State", "Player Size", "Invincibility", "Lives", "Enemy ESP", "Powerup ESP"}
+hacks = {"Powerup State", "Player Size", "Invincibility", "Lives", "Enemy ESP", "Powerup ESP", "Star"}
 
 -- Customizable values for the cheats (some cheats may not need these, so the max and min are set to 0)
-values = {0, 0, 0, 3, 0, 0}
-maxValues = {2, 1, 0, 127, 0, 0}
-minValues = {0, 0, 0, 1, 0, 0}
+values = {0, 0, 0, 3, 0, 0, 0}
+maxValues = {2, 1, 0, 127, 0, 0, 0}
+minValues = {0, 0, 0, 1, 0, 0, 0}
 
 -- What cheats are enabled
-enabled = {false, false, false, false, false, false}
+enabled = {false, false, false, false, false, false, false}
 
 -- What cheat is selected
 selected = 0
@@ -50,6 +50,7 @@ POWERUP_STATE = 0x0756
 PLAYER_SIZE = 0x0754
 INVINCIBILITY = 0x079E
 LIVES = 0x075A
+STAR = 0x079F
 
 ENEMY_X = 0x03AE
 ENEMY_Y = 0x03B9
@@ -134,9 +135,9 @@ while true do
 		
 		-- Makes sure you can't select out of bounds (prevents crashes)
 		if selected < 0 then
-			selected = 0
-		elseif selected > #hacks - 1 then
 			selected = #hacks - 1
+		elseif selected > #hacks - 1 then
+			selected = 0
 		end
 		
 		-- Is changing values
@@ -224,6 +225,10 @@ while true do
 			local y = mainmemory.readbyte(POWERUP_Y)
 			gui.drawBox(x, y, x+16, y+16, 0xFFFFB0FF, 0x40FFB0FF)
 		end
+	end
+	
+	if enabled[7] == true then
+		mainmemory.writebyte(STAR, 2);
 	end
 	
 	-- Update graphics
