@@ -26,11 +26,11 @@ enabled = {false, false, false, false, false, false, false}
 selected = 0
 
 -- Keys pressed
-up = joypad.get()["P1 Up"];
-down = joypad.get()["P1 Down"];
-left = joypad.get()["P1 Left"];
-right = joypad.get()["P1 Right"];
-press = joypad.get()["P1 A"];
+up = joypad.get()["P1 Up"]
+down = joypad.get()["P1 Down"]
+left = joypad.get()["P1 Left"]
+right = joypad.get()["P1 Right"]
+press = joypad.get()["P1 A"]
 
 -- Previous keys pressed
 prevUp = false
@@ -76,7 +76,7 @@ end
 -- Main loop
 while true do
 	-- Is the user pausing the game?
-	local _paused = mainmemory.readbyte(PAUSED);
+	local _paused = mainmemory.readbyte(PAUSED)
 
 	-- Changing the previously pressed keys
 	prevDown = down
@@ -86,11 +86,11 @@ while true do
 	prevRight = right
 
 	-- Checking for keyboard input
-	up = joypad.get()["P1 Up"];
-	down = joypad.get()["P1 Down"];
-	left = joypad.get()["P1 Left"];
-	right = joypad.get()["P1 Right"];
-	press = joypad.get()["P1 A"];
+	up = joypad.get()["P1 Up"]
+	down = joypad.get()["P1 Down"]
+	left = joypad.get()["P1 Left"]
+	right = joypad.get()["P1 Right"]
+	press = joypad.get()["P1 A"]
 
 
 	-- Should the cheat menu be showed?
@@ -109,10 +109,10 @@ while true do
 		if down and not prevDown then
 			if not isSettings then
 				-- Changes the selected cheat
-				selected = selected + 1;
+				selected = selected + 1
 			else
 				-- Decreases the current value (if selected)
-				values[selected+1] = values[selected+1] - 1;
+				values[selected+1] = values[selected+1] - 1
 				if values[selected+1] < minValues[selected+1] then
 					values[selected+1] = minValues[selected+1]
 				end
@@ -123,10 +123,10 @@ while true do
 		if up and not prevUp then
 			if not isSettings then
 				-- Changes the selected cheat
-				selected = selected - 1;
+				selected = selected - 1
 			else
 				-- Increases the current value (if selected)
-				values[selected+1] = values[selected+1] + 1;
+				values[selected+1] = values[selected+1] + 1
 				if values[selected+1] > maxValues[selected+1] then
 					values[selected+1] = maxValues[selected+1]
 				end
@@ -142,36 +142,36 @@ while true do
 		
 		-- Is changing values
 		if right and not prevRight then
-			isSettings = true;
+			isSettings = true
 		elseif left and not prevLeft then
-			isSettings = false;
+			isSettings = false
 		end
 		
 
 		-- Cheat menu background
-		gui.drawBox( 20, 24, 240, 180, 0x33000000, 0x55000000);
+		gui.drawBox( 20, 24, 240, 180, 0x33000000, 0x55000000)
 		
 		-- Title
-		gui.drawText( 21, 25, "Waluigi Client", 0xAAAA60AA, 0x00FFFFFF, 17, "calibri");
-		gui.drawText( 20, 24, "Waluigi Client", 0xFFFFB0FF, 0x00FFFFFF, 17, "calibri");
+		gui.drawText( 21, 25, "Waluigi Client", 0xAAAA60AA, 0x00FFFFFF, 17, "calibri")
+		gui.drawText( 20, 24, "Waluigi Client", 0xFFFFB0FF, 0x00FFFFFF, 17, "calibri")
 		
 		-- Loops over the cheats and renders their names based off of if they are enabled or not.
 		for i, h in pairs(hacks) do
 				if enabled[i] == false then
 					-- Not enabled
-					gui.drawText( 21, 25+(i+1)*11, h, 0xFF880000, 0x00000000, 10);
-					gui.drawText( 20, 24+(i+1)*11, h, 0xFFFF0000, 0x00000000, 10);
+					gui.drawText( 21, 25+(i+1)*11, h, 0xFF880000, 0x00000000, 10)
+					gui.drawText( 20, 24+(i+1)*11, h, 0xFFFF0000, 0x00000000, 10)
 				else
 					-- Enabled
-					gui.drawText( 21, 25+(i+1)*11, h, 0xFF006600, 0x00000000, 10);
-					gui.drawText( 20, 24+(i+1)*11, h, 0xFF00FF00, 0x00000000, 10);
+					gui.drawText( 21, 25+(i+1)*11, h, 0xFF006600, 0x00000000, 10)
+					gui.drawText( 20, 24+(i+1)*11, h, 0xFF00FF00, 0x00000000, 10)
 				end
 		end
 		
 		-- Draws the customizable values of the cheats
 		for i, h in pairs(values) do
-			gui.drawText( 20+100+1, (24+(i+1)*11)+1, h, 0x88303030, 0x00000000, 10);
-			gui.drawText( 20+100, 24+(i+1)*11, h, 0xFF909090, 0x00000000, 10);
+			gui.drawText( 20+100+1, (24+(i+1)*11)+1, h, 0x88303030, 0x00000000, 10)
+			gui.drawText( 20+100, 24+(i+1)*11, h, 0xFF909090, 0x00000000, 10)
 		end
 		
 		-- Draws the cursor
@@ -185,7 +185,7 @@ while true do
 	else
 		-- Not paused
 		selected = 0
-		gui.clearGraphics();
+		gui.clearGraphics()
 	end
 	
 	
@@ -228,9 +228,9 @@ while true do
 	end
 	
 	if enabled[7] == true then
-		mainmemory.writebyte(STAR, 2);
+		mainmemory.writebyte(STAR, 2)
 	end
 	
 	-- Update graphics
-	emu.frameadvance();
+	emu.frameadvance()
 end
