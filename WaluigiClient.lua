@@ -14,6 +14,7 @@ You can find the BizHawk emulator at https://tasvideos.org/Bizhawk
 --- Client data
 TITLE = "Waluigi Client"
 TITLE_FONT = "calibri"
+WARN_FONT = "candara"
 
 -- All the different cheats
 hacks = {"Powerup State", "Player Size", "Invincibility", "Lives", "Enemy ESP", "Powerup ESP", "Star"}
@@ -101,7 +102,7 @@ while true do
 	if _paused ~= 0 then
 		-- Unexpected ROM warning
 		if UNEXPECTED_ROM then
-			gui.drawText(1, 210, "WARN: Unexpected ROM hash encountered.", 0xffffff00, 0xff000000, 11, "candara")
+			gui.drawText(1, 210, "WARN: Unexpected ROM hash encountered.", 0xffffff00, 0xff000000, 11, WARN_FONT)
 		end
 	
 		-- Enables a cheat if you are hovering over it and you click the A button
