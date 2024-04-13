@@ -232,6 +232,7 @@ while true do
 		end
 	end
 	
+	-- Star
 	if enabled[7] == true then
 		mainmemory.writebyte(STAR, 2)
 	end
