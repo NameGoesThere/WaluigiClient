@@ -17,15 +17,15 @@ TITLE_FONT = "calibri"
 WARN_FONT = "candara"
 
 -- All the different cheats
-hacks = {"Powerup State", "Player Size", "Invincibility", "Lives", "Enemy ESP", "Powerup ESP", "Star"}
+hacks = {"Powerup State", "Player Size", "Invincibility", "Lives", "Enemy ESP", "Powerup ESP", "Star", "Flight"}
 
 -- Customizable values for the cheats (some cheats may not need these, so the max and min are set to 0)
-values = {0, 0, 0, 3, 0, 0, 0}
-maxValues = {2, 1, 0, 127, 0, 0, 0}
-minValues = {0, 0, 0, 1, 0, 0, 0}
+values = {0, 0, 0, 3, 0, 0, 0, 0}
+maxValues = {2, 1, 0, 127, 0, 0, 0, 0}
+minValues = {0, 0, 0, 1, 0, 0, 0, 0}
 
 -- What cheats are enabled
-enabled = {false, false, false, false, false, false, false}
+enabled = {false, false, false, false, false, false, false, false}
 
 -- What cheat is selected
 selected = 0
@@ -65,11 +65,16 @@ POWERUP_X = 0x03B3
 POWERUP_Y = 0x03BE
 POWERUP_DRAWN = 0x0014
 
+PLAYER_SPEED_H = 0x0057
+PLAYER_SPEED_V = 0x009F
+
+PLAYER_GRAVITY = 0x070A
+
 -- Gets the hash of the ROM
 ROM_HASH = gameinfo.getromhash()
 
--- Expected hash
-CORRECT_HASH = "AB30029EFEC6CCFC5D65DFDA7FBC6E6489A80805"
+-- Expected hash (Japan / US)
+CORRECT_HASH = "EA343F4E445A9050D4B4FBAC2C77D0693B1D0922"
 
 -- Incorrect ROM
 UNEXPECTED_ROM = false
@@ -236,6 +241,27 @@ while true do
 	if enabled[7] == true then
 		mainmemory.writebyte(STAR, 2)
 	end
+
+  -- Flight
+  if enabled[8] == true then
+    mainmemory.writebyte(PLAYER_GRAVITY, 0x00)
+
+    mainmemory.writebyte(PLAYER_SPEED_V, 0x00)
+    if up then
+      mainmemory.writebyte(PLAYER_SPEED_V, 0xFD)
+    end
+    if down then
+      mainmemory.writebyte(PLAYER_SPEED_V, 0x03)
+    end
+
+    mainmemory.writebyte(PLAYER_SPEED_H, 0x00)
+    if left then
+      mainmemory.writebyte(PLAYER_SPEED_H, 0xD6)
+    end
+    if right then
+      mainmemory.writebyte(PLAYER_SPEED_H, 0x30)
+    end
+  end
 	
 	-- Update graphics
 	emu.frameadvance()
